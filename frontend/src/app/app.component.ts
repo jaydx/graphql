@@ -12,27 +12,28 @@ export class AppComponent implements OnInit {
   loading = true;
   id: string;
   types: Array<string>;
-  anyType = "Any"; 
+  anyType = "Any";
   selectedType: string;
   searchPhrase: string;
 
   constructor(private apollo: Apollo) {
     this.id = '1';
-    this.selectedType = this.anyType; 
+    this.selectedType = this.anyType;
+    this.searchPhrase = "";
   }
 
   ngOnInit(): void {
-    this.runQuery();
+    this.runTypesQuery();
   }
 
-  onSelectTypeChange(selectedType: string){
+  onSelectTypeChange(selectedType: string) {
     console.log(`Selected Type: ${selectedType}`);
     this.selectedType = selectedType;
 
     this.searchCharacters();
   }
 
-  onSearchChange(searchPhrase: string){
+  onSearchChange(searchPhrase: string) {
     console.log(`Search: ${searchPhrase}`);
     this.searchPhrase = searchPhrase;
 
@@ -43,18 +44,17 @@ export class AppComponent implements OnInit {
     console.log(`Search: ${this.searchPhrase} for ${this.selectedType} starwarstype.`);
   }
 
-  runQuery() {
-    this.types = ['typeA', 'typeB'];
-
-    const getTypes  =  gql('{ types }');
+  runTypesQuery() {
+    const getTypes = gql('{ types }');
     this.apollo.watchQuery({
       query: getTypes
     })
-    .valueChanges.subscribe(result => {
-      this.types = result.data && result.data['types'];
-      this.loading = result.loading;
-    });
+      .valueChanges.subscribe(result => {
+        this.types = result.data && result.data['types'];
+        this.loading = result.loading;
+      });
 
+    /*
     const getRecord =  gql('{ human (id: "$id") { id name appearsIn } }'.replace('$id', this.id));
     this.apollo
       .watchQuery({
@@ -64,5 +64,6 @@ export class AppComponent implements OnInit {
         this.human = result.data && result.data['human'];
         this.loading = result.loading;
       });
+    */
   }
 }
