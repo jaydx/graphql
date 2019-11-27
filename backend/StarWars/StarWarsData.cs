@@ -21,15 +21,16 @@ namespace StarWars
                 Name = "Luke",
                 Friends = new[] { "3", "4" },
                 AppearsIn = new[] { 4, 5, 6 },
-                HomePlanet = "Tatooine"
-                
+                HomePlanet = "Tatooine",
+                Age = 24
             });
             _humans.Add(new Human
             {
                 Id = "2",
                 Name = "Vader",
                 AppearsIn = new[] { 4, 5, 6 },
-                HomePlanet = "Tatooine"
+                HomePlanet = "Tatooine",
+                Age = 55
             });
 
             _droids.Add(new Droid
@@ -38,14 +39,16 @@ namespace StarWars
                 Name = "R2-D2",
                 Friends = new[] { "1", "4" },
                 AppearsIn = new[] { 4, 5, 6 },
-                PrimaryFunction = "Astromech"
+                PrimaryFunction = "Astromech",
+                Age = 43
             });
             _droids.Add(new Droid
             {
                 Id = "4",
                 Name = "C-3PO",
                 AppearsIn = new[] { 4, 5, 6 },
-                PrimaryFunction = "Protocol"
+                PrimaryFunction = "Protocol",
+                Age = 120
             });
             _types.Add(new TypeEnum
             {
@@ -115,6 +118,19 @@ namespace StarWars
             _humans.Add(human);
             return human;
         }
-
+        public Human UpdateHuman(Human human)
+        {
+            Human _human = _humans.SingleOrDefault(p => p.Id == human.Id);
+            _humans.Remove(_human);
+            _humans.Add(human);
+            return human;
+        }
+        public Droid UpdateDroid(Droid droid)
+        {
+            Droid _droid = _droids.SingleOrDefault(p => p.Id == droid.Id);
+            _droids.Remove(_droid);
+            _droids.Add(droid);
+            return droid;
+        }
     }
 }

@@ -1,16 +1,15 @@
+/*
+ * TODO - base for HumanType and DroidType
 using GraphQL.Types;
 
 namespace StarWars.Types
 {
-    public class HumanType : ObjectGraphType<Human>
+    public class CharacterType : ObjectGraphType<StarWarsCharacter>
     {
-        public HumanType(StarWarsData data)
+        public CharacterType(StarWarsData data)
         {
-            Name = "Human";
-
-            Field(h => h.Id).Description("The id of the human.");
-            Field(h => h.Name, nullable: true).Description("The name of the human.");
-            Field(d => d.Type).Description("This is a Human");
+            Field(d => d.Id).Description("The id of the character.");
+            Field(d => d.Name, nullable: true).Description("The name of the character.");
             Field(d => d.Age, nullable: true).Description("The age (in Tatooine years) of the character.");
 
             Field<ListGraphType<CharacterInterface>>(
@@ -19,9 +18,8 @@ namespace StarWars.Types
             );
             Field<ListGraphType<EpisodeEnum>>("appearsIn", "Which movie they appear in.");
 
-            Field(h => h.HomePlanet, nullable: true).Description("The home planet of the human.");
-
             Interface<CharacterInterface>();
         }
     }
 }
+*/
