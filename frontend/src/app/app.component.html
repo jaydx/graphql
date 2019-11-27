@@ -1,7 +1,18 @@
+<!-- SEARCH BAR -->
+<div *ngIf="types?.length == false">
+  Loading Star Wars Character Types...
+</div>
+
 <div *ngIf="types?.length">
+<span>
+    <input type="text" placeholder="Search..." (input)="onSearchChange($event.target.value)">
+
   <select (change)="onSelectTypeChange($event.target.value)">
+      <option>{{anyType}}</option>
     <option *ngFor="let type of types">{{type}}</option>
   </select>
+
+</span>
 </div>
 
 <!--
