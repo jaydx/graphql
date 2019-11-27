@@ -18,8 +18,8 @@
 <br/>
 
 <div *ngFor="let character of searchedCharacters">
-  Name: <input type="text" [value]="character.name">
-  Age: <input type="text" [value]="character.age">
+  Name: <input type="text" [value]="character.name" (input)="character.name = $event.target.value">
+  Age:  <input type="text" [value]="character.age" (input)="character.age = $event.target.value">
 
   <div>
     Episodes:
