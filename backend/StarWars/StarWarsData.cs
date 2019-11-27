@@ -22,6 +22,7 @@ namespace StarWars
                 Friends = new[] { "3", "4" },
                 AppearsIn = new[] { 4, 5, 6 },
                 HomePlanet = "Tatooine"
+                
             });
             _humans.Add(new Human
             {
@@ -80,7 +81,24 @@ namespace StarWars
             }
             return friends;
         }
+        public IEnumerable<StarWarsCharacter> GetAll(string name, string type)
+        {
 
+            var all = new List<StarWarsCharacter>();
+            
+            {
+                _humans.Where(h=>h.Name.Contains(name)).Apply(all.Add);
+                _droids.Where(h => h.Name.Contains(name)).Apply(all.Add);
+            }
+
+            Types.Types searchType;
+            if (!string.IsNullOrEmpty(type) && Enum.TryParse<Types.Types>(type, out searchType))
+            {
+                return all.Where(a => a.Type == searchType);
+            }
+            return all;
+        }
+       
         public Task<Human> GetHumanByIdAsync(string id)
         {
             return Task.FromResult(_humans.FirstOrDefault(h => h.Id == id));
@@ -97,5 +115,6 @@ namespace StarWars
             _humans.Add(human);
             return human;
         }
+
     }
 }

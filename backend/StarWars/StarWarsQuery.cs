@@ -11,7 +11,8 @@ namespace StarWars
         {
             Name = "Query";
 
-            Field<CharacterInterface>("hero", resolve: context => data.GetDroidByIdAsync("3"));
+           // Field<CharacterInterface>("hero", resolve: context => data.GetAll());
+            
             Field<HumanType>(
                 "human",
                 arguments: new QueryArguments(
@@ -32,6 +33,14 @@ namespace StarWars
 
             Field<ListGraphType<HumanType>>("allhumans", resolve: context => data.GetHumans());
             Field<ListGraphType<TypeEnum>>("types", resolve: context => data.GetTypes());
+            Field<ListGraphType<CharacterInterface>>(
+                "characters",
+                arguments: new QueryArguments(
+                    new QueryArgument<NonNullGraphType<StringGraphType>> { Name = "search", Description = "name of the character" },
+                    new QueryArgument<NonNullGraphType<StringGraphType>> { Name = "type", Description = "the character type" }
+                ),
+                resolve: context => data.GetAll(context.GetArgument<string>("search"), context.GetArgument<string>("type")));
+
         }
     }
 }
