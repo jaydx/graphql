@@ -9,7 +9,6 @@ import gql from 'graphql-tag';
 })
 
 export class AppComponent implements OnInit {
-  human: any;
   loading = true;
   id: string;
   types: Array<string>;
@@ -22,19 +21,6 @@ export class AppComponent implements OnInit {
     this.id = '1';
     this.selectedType = this.anyType;
     this.searchPhrase = "";
-    this.searchedCharacters = [{
-        name: "bob",
-        id: 1,
-        episodes: ["return of the pancakes", "hallelujah 3"],
-        age: 422,
-        friends: ["other bob", "han solo"]
-    }, {
-      name: "sally",
-      id: 3,
-      episodes: ["tap dancing cats", "anikin throws a wobbly"],
-      age: 25,
-      friends: ["chewie"]
-    }];
   }
 
   ngOnInit(): void {
@@ -57,6 +43,19 @@ export class AppComponent implements OnInit {
 
   searchCharacters() {
     console.log(`Search: ${this.searchPhrase} for ${this.selectedType} starwarstype.`);
+
+    const getRecord =  gql('{characters(search:"$searchPhrase", type: "$type") { appearsIn, id, name, type, age }}'
+    .replace('$searchPhrase', this.searchPhrase)
+    .replace('$type', this.selectedType));
+
+    this.apollo
+      .watchQuery({
+        query: getRecord
+      })
+      .valueChanges.subscribe(result => {
+        this.searchedCharacters = result.data && result.data['characters'];
+        this.loading = result.loading;
+      });
   }
 
   saveCharacterChange(character: Character){
@@ -90,7 +89,8 @@ export class AppComponent implements OnInit {
 class Character {
   name: string;
   id: number;
-  episodes: Array<string>;
+  episodes: Array<number>;
   age: number;
   friends: Array<string>;
+  type: string;
 }
