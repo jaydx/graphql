@@ -60,6 +60,39 @@ export class AppComponent implements OnInit {
 
   saveCharacterChange(character: Character){
     console.log(character);
+
+    let mut = null;
+    let vars = null;
+    if (character.type === 'Droid')
+    {
+      mut =  gql(`
+        mutation ($droid:DroidInput!){ updateDroid(droid: $droid) { id name } }
+      `);
+
+      vars = gql(`
+      {"droid": {
+        "id":"$id",
+        "name":"$name",
+        "friends":$friends,
+        "primaryFunction":$primaryfunction,
+        "age":$age
+      }}`
+      .replace('$id', character.id)
+      .replace('$name', character.name)
+      .replace('$age', character.age.toString())
+//      .replace('$friends', character.friends.toString())
+      );
+    }
+
+    this.apollo
+      .mutate({
+        variables: vars,
+        mutation: mut
+      })
+      .subscribe(result => {
+        console.log(result);
+//        this. = result.data;
+      });
   }
 
   runTypesQuery() {
@@ -88,7 +121,7 @@ export class AppComponent implements OnInit {
 
 class Character {
   name: string;
-  id: number;
+  id: string;
   episodes: Array<number>;
   age: number;
   friends: Array<string>;
