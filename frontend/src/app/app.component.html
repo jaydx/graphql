@@ -1,3 +1,10 @@
+<div *ngIf="types?.length">
+  <select (change)="onSelectTypeChange($event.target.value)">
+    <option *ngFor="let type of types">{{type}}</option>
+  </select>
+</div>
+
+<!--
 <div *ngIf="loading">
   Loading...
 </div>
@@ -9,4 +16,4 @@
     <p> - {{film}}</p>
   </div>
 </div>
-
+-->

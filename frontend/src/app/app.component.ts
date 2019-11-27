@@ -11,6 +11,7 @@ export class AppComponent implements OnInit {
   human: any;
   loading = true;
   id: string;
+  types: Array<string>;
 
   constructor(private apollo: Apollo) {
     this.id = '1';
@@ -20,7 +21,14 @@ export class AppComponent implements OnInit {
     this.runQuery();
   }
 
+  onSelectTypeChange(selectedType : string){
+    console.log(selectedType);
+  }
+
   runQuery() {
+    this.types = ['typeA', 'typeB'];
+
+
     const getRecord =  gql('{ human (id: "$id") { id name appearsIn } }'.replace('$id', this.id));
     this.apollo
       .watchQuery({
