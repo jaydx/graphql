@@ -1,42 +1,54 @@
 <!-- SEARCH BAR -->
-<div *ngIf="types?.length == false">
+<mat-card *ngIf="types?.length == false">
   Loading Star Wars Character Types...
-</div>
+</mat-card>
 
-<div *ngIf="types?.length">
-  <span>
-    <input type="text" placeholder="Search..." (input)="onSearchChange($event.target.value)">
+<mat-card *ngIf="types?.length">
+  <mat-form-field>
+    <input matInput type="text" placeholder="Search..." (input)="onSearchChange($event.target.value)">
+  </mat-form-field>
 
-    <select (change)="onSelectTypeChange($event.target.value)">
-      <option>{{anyType}}</option>
-      <option *ngFor="let type of types">{{type}}</option>
-    </select>
+  <mat-form-field>
+    <mat-label>Character Type</mat-label>
+    <mat-select (selectionChange)="onSelectTypeChange($event.value)">
+      <mat-option [value]="anyType">{{anyType}}</mat-option>
+      <mat-option *ngFor="let type of types" [value]="type">{{type}}</mat-option>
+    </mat-select>
+  </mat-form-field>
 
-  </span>
-</div>
+</mat-card>
 
-<br/>
+<br />
 
-<div *ngFor="let character of searchedCharacters">
-  Name: <input type="text" [value]="character.name" (input)="character.name = $event.target.value">
-  Age:  <input type="text" [value]="character.age" (input)="character.age = $event.target.value">
+<mat-card *ngFor="let character of searchedCharacters">
 
-  <div>
-    Episodes:
-    <span *ngFor="let episode of character.episodes">  {{episode}} </span>   
-  </div>
+  <mat-card-content>
+    <mat-form-field>
+      <mat-label>Name</mat-label>
+      <input matInput type="text" [value]="character.name" (input)="character.name = $event.target.value">
+    </mat-form-field>
 
-  <br/>
+    <mat-form-field>
+      <mat-label>Age</mat-label>
+      <input matInput type="text" [value]="character.age" (input)="character.age = $event.target.value">
+    </mat-form-field>
+    <mat-list>
+      <mat-label>Episodes</mat-label>
+      <mat-list-item *ngFor="let episode of character.episodes"> {{episode}} </mat-list-item>
+    </mat-list>
+  </mat-card-content>
 
-  <div>
-    Friends:
-    <span *ngFor="let friend of character.friends">  {{friend}} </span>
-  </div>
+  <mat-card-content>
+    <mat-list>
+      <mat-label>Friends</mat-label>
+      <mat-list-item *ngFor="let friend of character.friends"> {{friend}} </mat-list-item>
+    </mat-list>
 
-  <button (click)="saveCharacterChange(character)">Save Changes</button>
+    <button mat-raised-button (click)="saveCharacterChange(character)">Save Changes</button>
+  </mat-card-content>
 
-  <br/>
-</div>
+  <br />
+</mat-card>
 
 
 
