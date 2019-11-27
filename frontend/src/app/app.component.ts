@@ -7,6 +7,7 @@ import gql from 'graphql-tag';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
+
 export class AppComponent implements OnInit {
   human: any;
   loading = true;
@@ -15,11 +16,25 @@ export class AppComponent implements OnInit {
   anyType = "Any";
   selectedType: string;
   searchPhrase: string;
+  searchedCharacters: Array<Character>;
 
   constructor(private apollo: Apollo) {
     this.id = '1';
     this.selectedType = this.anyType;
     this.searchPhrase = "";
+    this.searchedCharacters = [{
+        name: "bob",
+        id: 1,
+        episodes: ["return of the pancakes", "hallelujah 3"],
+        age: 422,
+        friends: ["other bob", "han solo"]
+    }, {
+      name: "sally",
+      id: 3,
+      episodes: ["tap dancing cats", "anikin throws a wobbly"],
+      age: 25,
+      friends: ["chewie"]
+    }];
   }
 
   ngOnInit(): void {
@@ -44,6 +59,10 @@ export class AppComponent implements OnInit {
     console.log(`Search: ${this.searchPhrase} for ${this.selectedType} starwarstype.`);
   }
 
+  saveCharacterChange(character: Character){
+    console.log(character);
+  }
+
   runTypesQuery() {
     const getTypes = gql('{ types }');
     this.apollo.watchQuery({
@@ -66,4 +85,12 @@ export class AppComponent implements OnInit {
       });
     */
   }
+}
+
+class Character {
+  name: string;
+  id: number;
+  episodes: Array<string>;
+  age: number;
+  friends: Array<string>;
 }

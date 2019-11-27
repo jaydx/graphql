@@ -4,16 +4,41 @@
 </div>
 
 <div *ngIf="types?.length">
-<span>
+  <span>
     <input type="text" placeholder="Search..." (input)="onSearchChange($event.target.value)">
 
-  <select (change)="onSelectTypeChange($event.target.value)">
+    <select (change)="onSelectTypeChange($event.target.value)">
       <option>{{anyType}}</option>
-    <option *ngFor="let type of types">{{type}}</option>
-  </select>
+      <option *ngFor="let type of types">{{type}}</option>
+    </select>
 
-</span>
+  </span>
 </div>
+
+<br/>
+
+<div *ngFor="let character of searchedCharacters">
+  Name: <input type="text" [value]="character.name">
+  Age: <input type="text" [value]="character.age">
+
+  <div>
+    Episodes:
+    <span *ngFor="let episode of character.episodes">  {{episode}} </span>   
+  </div>
+
+  <br/>
+
+  <div>
+    Friends:
+    <span *ngFor="let friend of character.friends">  {{friend}} </span>
+  </div>
+
+  <button (click)="saveCharacterChange(character)">Save Changes</button>
+
+  <br/>
+</div>
+
+
 
 <!--
 <div *ngIf="loading">
