@@ -14,10 +14,25 @@ namespace StarWars.Types
         }
     }
 
+    public class TypeEnum : EnumerationGraphType
+    {
+        public TypeEnum()
+        {
+            Name = "Type";
+            Description = "Type of character.";
+            AddValue("Human", "Not  droid or animal.", 1);
+            AddValue("Droid", "Is a droid.", 2);
+        }
+    }
     public enum Episodes
     {
         NEWHOPE  = 4,
         EMPIRE  = 5,
         JEDI  = 6
+    }
+    public enum Types
+    {
+        HUMAN = 1,
+        DROID = 2
     }
 }

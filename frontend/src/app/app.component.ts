@@ -46,6 +46,14 @@ export class AppComponent implements OnInit {
   runQuery() {
     this.types = ['typeA', 'typeB'];
 
+    const getTypes  =  gql('{ types }');
+    this.apollo.watchQuery({
+      query: getTypes
+    })
+    .valueChanges.subscribe(result => {
+      this.types = result.data && result.data['types'];
+      this.loading = result.loading;
+    });
 
     const getRecord =  gql('{ human (id: "$id") { id name appearsIn } }'.replace('$id', this.id));
     this.apollo

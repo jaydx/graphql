@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using GraphQL.Types;
 using StarWars.Types;
 
@@ -28,6 +29,9 @@ namespace StarWars
                 ),
                 resolve: func
             );
+
+            Field<ListGraphType<HumanType>>("allhumans", resolve: context => data.GetHumans());
+            Field<ListGraphType<TypeEnum>>("types", resolve: context => data.GetTypes());
         }
     }
 }

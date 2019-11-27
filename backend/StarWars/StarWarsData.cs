@@ -11,6 +11,7 @@ namespace StarWars
     {
         private readonly List<Human> _humans = new List<Human>();
         private readonly List<Droid> _droids = new List<Droid>();
+        private readonly List<TypeEnum> _types = new List<TypeEnum>();
 
         public StarWarsData()
         {
@@ -45,8 +46,24 @@ namespace StarWars
                 AppearsIn = new[] { 4, 5, 6 },
                 PrimaryFunction = "Protocol"
             });
+            _types.Add(new TypeEnum
+            {
+                Name = "Human"
+            });
+            _types.Add(new TypeEnum
+            {
+                Name = "Droid"
+            });
         }
 
+        public IEnumerable<Human> GetHumans()
+        {
+            return _humans;
+        }
+        public IEnumerable<TypeEnum> GetTypes()
+        {
+            return _types;
+        }
         public IEnumerable<StarWarsCharacter> GetFriends(StarWarsCharacter character)
         {
             if (character == null)
