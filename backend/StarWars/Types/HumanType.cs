@@ -11,6 +11,8 @@ namespace StarWars.Types
             Field(h => h.Id).Description("The id of the human.");
             Field(h => h.Name, nullable: true).Description("The name of the human.");
             Field(d => d.Type).Description("This is a Human");
+            Field(d => d.Age, nullable: true).Description("The age (in Tatooine years) of the character.");
+
             Field<ListGraphType<CharacterInterface>>(
                 "friends",
                 resolve: context => data.GetFriends(context.Source)

@@ -6,9 +6,9 @@ namespace StarWars.Types
     {
         public string Id { get; set; }
         public string Name { get; set; }
-        public string[] Friends { get; set; }
+        public string[] Friends { get; set; } // these are IDs
         public int[] AppearsIn { get; set; }
-
+        public int Age { get; set; }
         public Types Type { get; set; }
     }
 

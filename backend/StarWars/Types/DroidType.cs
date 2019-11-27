@@ -12,6 +12,8 @@ namespace StarWars.Types
             Field(d => d.Id).Description("The id of the droid.");
             Field(d => d.Name, nullable: true).Description("The name of the droid.");
             Field(d => d.Type).Description("This is a Droid");
+            Field(d => d.Age, nullable: true).Description("The age (in Tatooine years) of the character.");
+
             Field<ListGraphType<CharacterInterface>>(
                 "friends",
                 resolve: context => data.GetFriends(context.Source)
