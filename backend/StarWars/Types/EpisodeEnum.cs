@@ -32,7 +32,7 @@ namespace StarWars.Types
     }
     public enum Types
     {
-        HUMAN = 1,
-        DROID = 2
+        Human = 1,
+        Droid = 2
     }
 }

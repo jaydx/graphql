@@ -11,7 +11,7 @@ namespace StarWars.Types
 
             Field(d => d.Id).Description("The id of the droid.");
             Field(d => d.Name, nullable: true).Description("The name of the droid.");
-
+            Field(d => d.Type).Description("This is a Droid");
             Field<ListGraphType<CharacterInterface>>(
                 "friends",
                 resolve: context => data.GetFriends(context.Source)
