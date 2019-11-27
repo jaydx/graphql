@@ -118,6 +118,19 @@ namespace StarWars
             _humans.Add(human);
             return human;
         }
-
+        public Human UpdateHuman(Human human)
+        {
+            Human _human = _humans.SingleOrDefault(p => p.Id == human.Id);
+            _humans.Remove(_human);
+            _humans.Add(human);
+            return human;
+        }
+        public Droid UpdateDroid(Droid droid)
+        {
+            Droid _droid = _droids.SingleOrDefault(p => p.Id == droid.Id);
+            _droids.Remove(_droid);
+            _droids.Add(droid);
+            return droid;
+        }
     }
 }
